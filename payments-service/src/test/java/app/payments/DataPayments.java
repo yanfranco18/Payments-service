@@ -1,10 +1,15 @@
 package app.payments;
 
+import app.payments.accountclient.AccountServiceClient;
+import app.payments.accountclient.dto.AccountClient;
 import app.payments.models.Payment;
+import reactor.core.publisher.Mono;
 
 import java.util.Date;
 
 public class DataPayments {
+
+    private static AccountServiceClient accountServiceClient;
 
     public static Payment savePaymentThird(){
         Payment pay = new Payment();
@@ -26,5 +31,9 @@ public class DataPayments {
         payment.setIdAccount("1244555gg");
         payment.setCreateDate(new Date(2022-02-16));
         return payment;
+    }
+
+    public static Mono<AccountClient> idAccount(){
+        return accountServiceClient.findById("1234556789");
     }
 }

@@ -22,7 +22,6 @@ public class Payment {
     private String numberIdentity;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date createDate;
-
     private String idAccount;
 
 }
