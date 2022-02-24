@@ -8,11 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
@@ -33,6 +31,28 @@ public class PaymentsController {
                 .map(p -> ResponseEntity.created(URI.create("/payments/".concat(p.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(p));
+    }
+
+    @CircuitBreaker(name="payments", fallbackMethod = "fallback")
+    @TimeLimiter(name="payments")
+    @GetMapping
+    public Mono<ResponseEntity<Flux<Payment>>> getPayments(){
+        log.info("iniciando lista");
+        return Mono.just(
+                ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(paymentsService.findAll()));
+    }
+
+    @CircuitBreaker(name="payments", fallbackMethod = "fallback")
+    @TimeLimiter(name="payments")
+    @GetMapping("/{id}")
+    public Mono<ResponseEntity<Payment>> getById(@PathVariable String id){
+        return paymentsService.findById(id)
+                .map(p -> ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(p))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     //metodo para manejar el error

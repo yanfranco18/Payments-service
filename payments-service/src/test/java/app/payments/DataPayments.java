@@ -16,4 +16,15 @@ public class DataPayments {
         pay.setIdAccount("1234556789");
         return pay;
     }
+
+    public static Payment getList(){
+        Payment payment = new Payment();
+        payment.setId("12233d");
+        payment.setNameThird("Luis Ingaruca");
+        payment.setNumberIdentity("34567889");
+        payment.setAmountPay(20.00);
+        payment.setIdAccount("1244555gg");
+        payment.setCreateDate(new Date(2022-02-16));
+        return payment;
+    }
 }

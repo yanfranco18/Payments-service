@@ -3,6 +3,7 @@ package app.payments.accountclient.impl;
 import app.payments.accountclient.AccountServiceClient;
 import app.payments.accountclient.dto.AccountClient;
 import app.payments.config.properties.AppConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
