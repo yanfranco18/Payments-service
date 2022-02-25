@@ -30,7 +30,7 @@ public class PaymentsController {
         return paymentsService.savePaymentThird(payment)
                 .map(p -> ResponseEntity.created(URI.create("/payments/".concat(p.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(p));
+                        .body(p)).defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @CircuitBreaker(name="payments", fallbackMethod = "fallback")
