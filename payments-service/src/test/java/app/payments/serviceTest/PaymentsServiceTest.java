@@ -58,7 +58,7 @@ public class PaymentsServiceTest {
                 .verifyComplete();
     }
 
-    @Test
+   /* @Test
     void savePaymentThirdTest(){
 
         Payment payment = DataPayments.savePaymentThird();
@@ -71,5 +71,5 @@ public class PaymentsServiceTest {
                 .expectSubscription()
                 //.expectNextMatches(p -> p.getIdAccount().equals(any()))
                 .expectComplete();
-    }
+    }*/
 }
